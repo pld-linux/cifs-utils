@@ -1,7 +1,7 @@
 Summary:	Utilities for mounting and managing CIFS mounts
 Name:		cifs-utils
 Version:	5.1
-Release:	0.1
+Release:	1
 License:	GPL v3
 Group:		Daemons
 URL:		http://linux-cifs.samba.org/cifs-utils/
@@ -10,13 +10,14 @@ Source0:	ftp://ftp.samba.org/pub/linux-cifs/cifs-utils/%{name}-%{version}.tar.bz
 Patch0:		%{name}-install-cifsacl-tools-in-usrbin.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	heimdal-devel
+BuildRequires:	heimdal-devel >= 1.5.1-3
 BuildRequires:	keyutils-devel
 BuildRequires:	libcap-ng-devel
 BuildRequires:	libtalloc-devel
 BuildRequires:	samba-devel
 Requires:	keyutils
 Obsoletes:	mount-cifs
+Conflicts:	samba-client < 1:3.6.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -32,7 +33,11 @@ standard Linux file system.
 %patch0 -p1
 
 %build
-%configure
+%configure \
+	--with-libcap-ng=yes \
+	--enable-cifsupcall \
+	--enable-cifsidmap \
+	--enable-cifsacl
 
 %{__make}
 
