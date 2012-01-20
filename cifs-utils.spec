@@ -1,13 +1,12 @@
 Summary:	Utilities for mounting and managing CIFS mounts
 Name:		cifs-utils
-Version:	5.1
+Version:	5.2
 Release:	1
 License:	GPL v3
 Group:		Daemons
 URL:		http://linux-cifs.samba.org/cifs-utils/
 Source0:	ftp://ftp.samba.org/pub/linux-cifs/cifs-utils/%{name}-%{version}.tar.bz2
-# Source0-md5:	b1b232adc042fd157d2f9848f4650fad
-Patch0:		%{name}-install-cifsacl-tools-in-usrbin.patch
+# Source0-md5:	2ca839553cccd0c3042f7dd8737cc9de
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	heimdal-devel >= 1.5.1-3
@@ -30,7 +29,6 @@ standard Linux file system.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %configure \
