@@ -3,7 +3,7 @@ Summary(pl.UTF-8):	Narzędzia do montowania i zarządzania montowaniami CIFS
 Name:		cifs-utils
 Version:	5.5
 Release:	1
-License:	GPL v3
+License:	GPL v3+
 Group:		Daemons
 Source0:	ftp://ftp.samba.org/pub/linux-cifs/cifs-utils/%{name}-%{version}.tar.bz2
 # Source0-md5:	4de6c660ccdb9506d0e2cff4f37b8707
@@ -62,6 +62,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
+%doc AUTHORS README
 %attr(755,root,root) /sbin/mount.cifs
 %attr(755,root,root) %{_bindir}/cifscreds
 %attr(755,root,root) %{_bindir}/getcifsacl
