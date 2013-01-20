@@ -1,12 +1,12 @@
 Summary:	Utilities for mounting and managing CIFS mounts
 Summary(pl.UTF-8):	Narzędzia do montowania i zarządzania montowaniami CIFS
 Name:		cifs-utils
-Version:	5.8
+Version:	5.9
 Release:	1
 License:	GPL v3+
 Group:		Daemons
 Source0:	ftp://ftp.samba.org/pub/linux-cifs/cifs-utils/%{name}-%{version}.tar.bz2
-# Source0-md5:	6aa9c4347780872fefe5823ac06a8ff3
+# Source0-md5:	7164ad6f7963a31fcbffbe4f14a7cfc6
 Patch0:		%{name}-heimdal.patch
 URL:		http://linux-cifs.samba.org/cifs-utils/
 BuildRequires:	heimdal-devel >= 1.5.1-3
@@ -69,9 +69,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/setcifsacl
 %attr(755,root,root) %{_sbindir}/cifs.upcall
 %attr(755,root,root) %{_sbindir}/cifs.idmap
+%dir %{_libdir}/%{name}
+%attr(755,root,root) %{_libdir}/%{name}/idmapwb.so
 %{_mandir}/man1/cifscreds.1*
 %{_mandir}/man1/getcifsacl.1*
 %{_mandir}/man1/setcifsacl.1*
 %{_mandir}/man8/cifs.upcall.8*
 %{_mandir}/man8/cifs.idmap.8*
+%{_mandir}/man8/idmapwb.8*
 %{_mandir}/man8/mount.cifs.8*
