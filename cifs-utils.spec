@@ -1,19 +1,20 @@
 Summary:	Utilities for mounting and managing CIFS mounts
 Summary(pl.UTF-8):	Narzędzia do montowania i zarządzania montowaniami CIFS
 Name:		cifs-utils
-Version:	6.0
+Version:	6.3
 Release:	1
 License:	GPL v3+
 Group:		Daemons
 Source0:	ftp://ftp.samba.org/pub/linux-cifs/cifs-utils/%{name}-%{version}.tar.bz2
-# Source0-md5:	371e007a201be90c16497cd9bd5e2553
+# Source0-md5:	93697dbc043cb4d5c66e15e281f872e5
 Patch0:		%{name}-heimdal.patch
 URL:		http://linux-cifs.samba.org/cifs-utils/
 BuildRequires:	heimdal-devel >= 1.5.1-3
 BuildRequires:	keyutils-devel
 BuildRequires:	libcap-ng-devel
-BuildRequires:	libsmbclient-devel
+BuildRequires:	libsmbclient-devel >= 1:4
 BuildRequires:	libtalloc-devel
+BuildRequires:	pam-devel
 Requires:	keyutils
 Obsoletes:	mount-cifs
 Conflicts:	samba-client < 1:3.6.0
@@ -36,15 +37,25 @@ współpracując z obsługą w jądrze pozwalają na montowanie udziałów
 SMB/CIFS na systemie klienckim tak, jakby był to standardowy
 linuksowy system plików.
 
+%package devel
+Summary:	Header file for cifs-utils ID Mapping Plugin interface
+Summary(pl.UTF-8):	Plik nagłówkowy interfejsu wtyczek ID Mapping cifs-utils
+Group:		Development/Libraries
+# doesn't require base
+
+%description devel
+Header file for cifs-utils ID Mapping Plugin interface.
+
+%description devel -l pl.UTF-8
+Plik nagłówkowy interfejsu wtyczek ID Mapping cifs-utils.
+
 %prep
 %setup -q
 %patch0 -p1
 
 %build
 %configure \
-	WBCLIENT_CFLAGS=" " \
-	WBCLIENT_LIBS="-lwbclient" \
-	--with-libcap-ng=yes \
+	--with-libcap-ng \
 	--enable-cifsupcall \
 	--enable-cifsidmap \
 	--enable-cifsacl
@@ -55,7 +66,8 @@ linuksowy system plików.
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	pamdir=/%{_lib}/security
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -69,6 +81,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/setcifsacl
 %attr(755,root,root) %{_sbindir}/cifs.upcall
 %attr(755,root,root) %{_sbindir}/cifs.idmap
+%attr(755,root,root) /%{_lib}/security/pam_cifscreds.so
 %dir %{_libdir}/%{name}
 %attr(755,root,root) %{_libdir}/%{name}/idmapwb.so
 %{_mandir}/man1/cifscreds.1*
@@ -78,3 +91,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/cifs.idmap.8*
 %{_mandir}/man8/idmapwb.8*
 %{_mandir}/man8/mount.cifs.8*
+%{_mandir}/man8/pam_cifscreds.8*
+
+%files devel
+%defattr(644,root,root,755)
+%{_includedir}/cifsidmap.h
