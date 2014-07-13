@@ -1,12 +1,12 @@
 Summary:	Utilities for mounting and managing CIFS mounts
 Summary(pl.UTF-8):	Narzędzia do montowania i zarządzania montowaniami CIFS
 Name:		cifs-utils
-Version:	6.3
+Version:	6.4
 Release:	1
 License:	GPL v3+
 Group:		Daemons
 Source0:	ftp://ftp.samba.org/pub/linux-cifs/cifs-utils/%{name}-%{version}.tar.bz2
-# Source0-md5:	93697dbc043cb4d5c66e15e281f872e5
+# Source0-md5:	b7d75b67fd3987952896d27256c7293d
 Patch0:		%{name}-heimdal.patch
 URL:		http://linux-cifs.samba.org/cifs-utils/
 BuildRequires:	heimdal-devel >= 1.5.1-3
