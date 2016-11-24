@@ -1,14 +1,14 @@
 --- cifs-utils-5.5/cifs.upcall.c.orig	2012-05-30 12:12:16.000000000 +0200
 +++ cifs-utils-5.5/cifs.upcall.c	2012-06-24 20:47:02.372423189 +0200
-@@ -76,7 +76,7 @@
+@@ -71,7 +71,7 @@ typedef enum _sectype {
+  * @return pointer to the realm
   *
   */
- 
--static char *cifs_krb5_principal_get_realm(krb5_context context __attribute__ ((unused)),
-+static const char *cifs_krb5_principal_get_realm(krb5_context context __attribute__ ((unused)),
- 					   krb5_principal principal)
+-static char *cifs_krb5_principal_get_realm(krb5_principal principal)
++static const char *cifs_krb5_principal_get_realm(krb5_principal principal)
  {
  #ifdef HAVE_KRB5_PRINCIPAL_GET_REALM	/* Heimdal */
+ 	return krb5_principal_get_realm(context, principal);
 @@ -84,7 +84,7 @@
  #elif defined(krb5_princ_realm)	/* MIT */
  	krb5_data *realm;
