@@ -1,13 +1,14 @@
 Summary:	Utilities for mounting and managing CIFS mounts
 Summary(pl.UTF-8):	Narzędzia do montowania i zarządzania montowaniami CIFS
 Name:		cifs-utils
-Version:	6.9
+Version:	6.10
 Release:	1
 License:	GPL v3+
 Group:		Daemons
 Source0:	http://ftp.samba.org/pub/linux-cifs/cifs-utils/%{name}-%{version}.tar.bz2
-# Source0-md5:	6ae854852e39ab1d5e2e3b512fdffb08
+# Source0-md5:	1cb2d653ccc77f8644213340a4f6b7dc
 Patch0:		%{name}-heimdal.patch
+Patch1:		build.patch
 URL:		http://linux-cifs.samba.org/cifs-utils/
 BuildRequires:	heimdal-devel >= 1.5.1-3
 BuildRequires:	keyutils-devel
@@ -52,6 +53,14 @@ Plik nagłówkowy interfejsu wtyczek ID Mapping cifs-utils.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+
+sed -E -i -e '1s,#!\s*/usr/bin/env\s+python2(\s|$),#!%{__python}\1,' -e '1s,#!\s*/usr/bin/env\s+python(\s|$),#!%{__python}\1,' -e '1s,#!\s*/usr/bin/python(\s|$),#!%{__python}\1,' \
+      smb2-quota \
+      smb2-secdesc
+
+sed -E -i -e '1s,#!\s*/usr/bin/env\s+python3(\s|$),#!%{__python3}\1,' \
+      checkopts
 
 %build
 %{__aclocal}
@@ -79,9 +88,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS README
 %attr(755,root,root) /sbin/mount.cifs
+%attr(755,root,root) /sbin/mount.smb3
 %attr(755,root,root) %{_bindir}/cifscreds
 %attr(755,root,root) %{_bindir}/getcifsacl
 %attr(755,root,root) %{_bindir}/setcifsacl
+%attr(755,root,root) %{_bindir}/smb2-quota
 %attr(755,root,root) %{_bindir}/smbinfo
 %attr(755,root,root) %{_sbindir}/cifs.upcall
 %attr(755,root,root) %{_sbindir}/cifs.idmap
@@ -91,11 +102,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/cifscreds.1*
 %{_mandir}/man1/getcifsacl.1*
 %{_mandir}/man1/setcifsacl.1*
+%{_mandir}/man1/smb2-quota.1*
 %{_mandir}/man1/smbinfo.1*
 %{_mandir}/man8/cifs.upcall.8*
 %{_mandir}/man8/cifs.idmap.8*
 %{_mandir}/man8/idmapwb.8*
 %{_mandir}/man8/mount.cifs.8*
+%{_mandir}/man8/mount.smb3.8*
 %{_mandir}/man8/pam_cifscreds.8*
 
 %files devel
