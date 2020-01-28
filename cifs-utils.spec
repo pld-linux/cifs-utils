@@ -10,6 +10,8 @@ Source0:	http://ftp.samba.org/pub/linux-cifs/cifs-utils/%{name}-%{version}.tar.b
 Patch0:		%{name}-heimdal.patch
 Patch1:		build.patch
 URL:		http://linux-cifs.samba.org/cifs-utils/
+BuildRequires:	autoconf >= 2.50
+BuildRequires:	automake
 BuildRequires:	heimdal-devel >= 1.5.1-3
 BuildRequires:	keyutils-devel
 BuildRequires:	libcap-ng-devel
@@ -55,11 +57,11 @@ Plik nagłówkowy interfejsu wtyczek ID Mapping cifs-utils.
 %patch0 -p1
 %patch1 -p1
 
-sed -E -i -e '1s,#!\s*/usr/bin/env\s+python2(\s|$),#!%{__python}\1,' -e '1s,#!\s*/usr/bin/env\s+python(\s|$),#!%{__python}\1,' -e '1s,#!\s*/usr/bin/python(\s|$),#!%{__python}\1,' \
+%{__sed} -i -e '1s,/usr/bin/env python$,%{__python},' \
       smb2-quota \
       smb2-secdesc
 
-sed -E -i -e '1s,#!\s*/usr/bin/env\s+python3(\s|$),#!%{__python3}\1,' \
+%{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},' \
       checkopts
 
 %build
@@ -68,9 +70,9 @@ sed -E -i -e '1s,#!\s*/usr/bin/env\s+python3(\s|$),#!%{__python3}\1,' \
 %{__autoconf}
 %configure \
 	--with-libcap-ng \
-	--enable-cifsupcall \
+	--enable-cifsacl \
 	--enable-cifsidmap \
-	--enable-cifsacl
+	--enable-cifsupcall
 
 %{__make}
 
