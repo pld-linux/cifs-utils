@@ -1,14 +1,13 @@
 Summary:	Utilities for mounting and managing CIFS mounts
 Summary(pl.UTF-8):	Narzędzia do montowania i zarządzania montowaniami CIFS
 Name:		cifs-utils
-Version:	6.10
+Version:	6.12
 Release:	1
 License:	GPL v3+
 Group:		Daemons
 Source0:	http://ftp.samba.org/pub/linux-cifs/cifs-utils/%{name}-%{version}.tar.bz2
-# Source0-md5:	1cb2d653ccc77f8644213340a4f6b7dc
+# Source0-md5:	b49b10692bcae7f28669173a472077dd
 Patch0:		%{name}-heimdal.patch
-Patch1:		build.patch
 URL:		http://linux-cifs.samba.org/cifs-utils/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -55,14 +54,14 @@ Plik nagłówkowy interfejsu wtyczek ID Mapping cifs-utils.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %{__sed} -i -e '1s,/usr/bin/env python$,%{__python},' \
       smb2-quota \
       smb2-secdesc
 
 %{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},' \
-      checkopts
+      checkopts \
+      smbinfo
 
 %build
 %{__aclocal}
