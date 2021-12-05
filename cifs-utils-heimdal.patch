@@ -25,8 +25,8 @@
 -	char *realm = NULL;
 +	const char *realm = NULL;
  
- 	if (krb5_init_context(&context)) {
- 		syslog(LOG_DEBUG, "%s: unable to init krb5 context", __func__);
+ 	if (krb5_cc_set_flags(context, ccache, 0)) {
+ 		syslog(LOG_DEBUG, "%s: unable to set flags", __func__);
 @@ -162,7 +162,7 @@
  		    && creds.times.endtime > time(NULL))
  			credtime = creds.times.endtime;

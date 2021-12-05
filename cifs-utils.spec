@@ -11,6 +11,7 @@ Patch0:		%{name}-heimdal.patch
 URL:		http://linux-cifs.samba.org/cifs-utils/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
+BuildRequires:	docutils
 BuildRequires:	heimdal-devel >= 1.5.1-3
 BuildRequires:	keyutils-devel
 BuildRequires:	libcap-ng-devel
