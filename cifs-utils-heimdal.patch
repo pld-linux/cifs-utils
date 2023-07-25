@@ -36,13 +36,3 @@
  	}
  err_endseq:
  	krb5_cc_end_seq_get(context, ccache, &cur);
---- cifs-utils-6.7/cifs.upcall.c~	2017-09-05 09:43:27.000000000 +0200
-+++ cifs-utils-6.7/cifs.upcall.c	2017-09-05 09:50:53.113486219 +0200
-@@ -75,6 +75,7 @@ typedef enum _sectype {
- #define KRB5_KEY_LENGTH(k)      ((k)->keyvalue.length)
- #define KRB5_KEY_DATA(k)        ((k)->keyvalue.data)
- #define KRB5_KEY_DATA_CAST      void
-+#define krb5_free_string(ctx, string)     krb5_xfree(string)
- #else /* MIT */
- #define KRB5_KEY_TYPE(k)        ((k)->enctype)
- #define KRB5_KEY_LENGTH(k)      ((k)->length)
