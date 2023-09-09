@@ -1,0 +1,20 @@
+--- cifs-utils-7.0/smb2-secdesc.orig	2023-09-09 12:42:49.000000000 +0200
++++ cifs-utils-7.0/smb2-secdesc	2023-09-09 12:48:13.717223739 +0200
+@@ -8,7 +8,7 @@
+ import struct
+ import stat
+ import sys
+-from Tkinter import *
++from tkinter import *
+ 
+ FULL_CONTROL = 0x001f01ff
+ EWRITE = 0x00000116
+@@ -297,7 +297,7 @@
+ CIFS_QUERY_INFO = 0xc018cf07
+ 
+ def usage():
+-	print "Usage: %s <filename>" % (sys.argv[0])
++	print("Usage: %s <filename>" % (sys.argv[0]))
+ 	sys.exit()
+ 
+ 
