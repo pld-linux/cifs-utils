@@ -1,12 +1,12 @@
 Summary:	Utilities for mounting and managing CIFS mounts
 Summary(pl.UTF-8):	Narzędzia do montowania i zarządzania montowaniami CIFS
 Name:		cifs-utils
-Version:	7.0
-Release:	2
+Version:	7.1
+Release:	1
 License:	GPL v3+
 Group:		Daemons
 Source0:	https://ftp.samba.org/pub/linux-cifs/cifs-utils/%{name}-%{version}.tar.bz2
-# Source0-md5:	518431bf43f23e6aacd97e80e2060df7
+# Source0-md5:	3007afcad0bc3850028566f2cfc49a4c
 Patch0:		%{name}-heimdal.patch
 Patch1:		python3.patch
 URL:		https://wiki.samba.org/index.php/LinuxCIFS_utils
@@ -20,7 +20,7 @@ BuildRequires:	libsmbclient-devel >= 1:4
 BuildRequires:	libtalloc-devel
 BuildRequires:	pam-devel
 Requires:	keyutils
-Obsoletes:	mount-cifs
+Obsoletes:	mount-cifs < 0.2
 Conflicts:	samba-client < 1:3.6.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
