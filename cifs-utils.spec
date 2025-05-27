@@ -55,8 +55,8 @@ Plik nagłówkowy interfejsu wtyczek ID Mapping cifs-utils.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 %{__sed} -i -e '1s,/usr/bin/env python$,%{__python3},' \
 	-e '1s,/usr/bin/env python3,%{__python3},' \
