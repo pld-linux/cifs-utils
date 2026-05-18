@@ -1,17 +1,18 @@
 Summary:	Utilities for mounting and managing CIFS mounts
 Summary(pl.UTF-8):	Narzędzia do montowania i zarządzania montowaniami CIFS
 Name:		cifs-utils
-Version:	7.3
+Version:	7.5
 Release:	1
 License:	GPL v3+
 Group:		Daemons
 Source0:	https://ftp.samba.org/pub/linux-cifs/cifs-utils/%{name}-%{version}.tar.bz2
-# Source0-md5:	ed26a90c367cf2e958ff956bd8e8fc99
+# Source0-md5:	c091101fcf202e729407b110979b5990
 Patch0:		%{name}-heimdal.patch
 Patch1:		python3.patch
 URL:		https://wiki.samba.org/index.php/LinuxCIFS_utils
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
+# rst2man
 BuildRequires:	docutils
 BuildRequires:	heimdal-devel >= 1.5.1-3
 BuildRequires:	keyutils-devel
@@ -73,7 +74,8 @@ Plik nagłówkowy interfejsu wtyczek ID Mapping cifs-utils.
 	--with-libcap-ng \
 	--enable-cifsacl \
 	--enable-cifsidmap \
-	--enable-cifsupcall
+	--enable-cifsupcall \
+	--enable-man
 
 %{__make}
 
@@ -99,9 +101,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/smbinfo
 %attr(755,root,root) %{_sbindir}/cifs.upcall
 %attr(755,root,root) %{_sbindir}/cifs.idmap
-%attr(755,root,root) /%{_lib}/security/pam_cifscreds.so
+/%{_lib}/security/pam_cifscreds.so
 %dir %{_libdir}/%{name}
-%attr(755,root,root) %{_libdir}/%{name}/idmapwb.so
+%{_libdir}/%{name}/idmapwb.so
 %{_mandir}/man1/cifscreds.1*
 %{_mandir}/man1/getcifsacl.1*
 %{_mandir}/man1/setcifsacl.1*
